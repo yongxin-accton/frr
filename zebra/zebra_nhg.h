@@ -143,7 +143,7 @@ struct nhg_hash_entry {
 /*
  * Track FPM installation status..
  */
-#define NEXTHOP_GROUP_FPM (1 << 6)
+#define NEXTHOP_GROUP_FPM (1 << 7)
 };
 
 /* Upper 4 bits of the NHG are reserved for indicating the NHG type */
@@ -274,12 +274,17 @@ extern bool zebra_nhg_dependents_is_empty(const struct nhg_hash_entry *nhe);
 /* Lookup ID, doesn't create */
 extern struct nhg_hash_entry *zebra_nhg_lookup_id(uint32_t id);
 
+/* Lookup preserved, doesn't create */
+extern struct nhg_hash_entry *zebra_presvd_nhg_lookup(struct nhg_hash_entry *lookup);
+
 /* Hash functions */
 extern uint32_t zebra_nhg_hash_key(const void *arg);
 extern uint32_t zebra_nhg_id_key(const void *arg);
+extern uint32_t zebra_nhg_presvd_key(const void *arg);
 
 extern bool zebra_nhg_hash_equal(const void *arg1, const void *arg2);
 extern bool zebra_nhg_hash_id_equal(const void *arg1, const void *arg2);
+extern bool zebra_nhg_presvd_hash_equal(const void *arg1, const void *arg2);
 
 /*
  * Process a context off of a queue.
