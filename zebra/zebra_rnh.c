@@ -662,16 +662,17 @@ static void zebra_rnh_fixup_depends(uint32_t nhe_id, uint32_t new_nhe_id)
 						    __func__, pparent_nhe, pparent_nhe ,
 						    parent_nhe, parent_nhe, nhe, nhe, newnhe, newnhe);
 
-				/* TODO
+				/* TODO */
 				nhg_connected_tree_del_nhe(&parent_nhe->nhg_depends, nhe);
-				zebra_nhg_decrement_ref(nhe);
 				nhg_connected_tree_add_nhe(&parent_nhe->nhg_depends, newnhe);
-				zebra_nhg_increment_ref(newnhe);
 
 				if (IS_ZEBRA_DEBUG_NHT)
 					zlog_debug("%s: Quick fixup for nhe %p (%pNG)", __func__, newnhe, newnhe);
 
-				dplane_nexthop_add(pparent_nhe); */
+				dplane_nexthop_add(pparent_nhe);
+
+				nhg_connected_tree_del_nhe(&parent_nhe->nhg_depends, newnhe);
+				nhg_connected_tree_add_nhe(&parent_nhe->nhg_depends, nhe);
 			}
 		}
 	}
